@@ -55,13 +55,13 @@ if uploaded_file is not None:
 
     # 2. Pre-processing gambar agar sesuai dengan input yang diharapkan model
     # Ukuran diubah menjadi 224x224 (ukuran yang umum dan terbukti berhasil sebelumnya)
-    target_size = (224, 224) 
+    target_size = (150, 150) 
     img_resized = img.resize(target_size)
     
     # Konversi gambar ke array NumPy dan normalisasi piksel
     img_array = np.array(img_resized) / 255.0
     
-    # Tambahkan dimensi batch (dari (224, 224, 3) menjadi (1, 224, 224, 3))
+    # Tambahkan dimensi batch (dari (150, 150, 3) menjadi (1, 150, 150, 3))
     img_array = np.expand_dims(img_array, axis=0)
 
     # 3. Lakukan prediksi dengan model
