@@ -54,10 +54,10 @@ prediction_value = model.predict(img_array)[0][0] # Ambil satu-satunya nilai dar
 
 # Gunakan ambang batas (threshold) 0.5 untuk menentukan kelas
 if prediction_value < 0.5:
-    predicted_label = binary_labels[0] # Normal
+    predicted_label = binary_labels[1] # Normal
     confidence = 1 - prediction_value
 else:
-    predicted_label = binary_labels[1] # Katarak
+    predicted_label = binary_labels[0] # Katarak
     confidence = prediction_value
 
 st.subheader("🔍 Hasil Prediksi")
