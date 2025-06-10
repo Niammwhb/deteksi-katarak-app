@@ -29,7 +29,7 @@ if uploaded_file is not None:
     img = Image.open(uploaded_file).convert("RGB")
     st.image(img, caption="Gambar Diunggah", use_column_width=True)
 
-    img = img.resize((128, 128))  # Sesuaikan dengan input model
+    img = img.resize((150, 150))  # Sesuaikan dengan input model
     img_array = np.array(img) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
 
