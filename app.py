@@ -33,14 +33,36 @@ if uploaded_file is not None:
     img_array = np.array(img) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
 
-    prediction = model.predict(img_array)[0]
-    predicted_label = labels[np.argmax(prediction)]
-    confidence = np.max(prediction)
+    # prediction = model.predict(img_array)[0]
+    # predicted_label = labels[np.argmax(prediction)]
+    # confidence = np.max(prediction)
 
-    st.subheader("🔍 Hasil Prediksi")
-    st.write(f"**Kelas:** {predicted_label}")
-    st.write(f"**Confidence:** {confidence:.2f}")
+    # st.subheader("🔍 Hasil Prediksi")
+    # st.write(f"**Kelas:** {predicted_label}")
+    # st.write(f"**Confidence:** {confidence:.2f}")
 
-    st.markdown("### 📊 Semua Probabilitas:")
-    for i in range(len(labels)):
-        st.write(f"{labels[i]}: {prediction[i]:.2f}")
+    # st.markdown("### 📊 Semua Probabilitas:")
+    # for i in range(len(labels)):
+    #     st.write(f"{labels[i]}: {prediction[i]:.2f}")
+# --- HANYA JIKA MODEL ANDA ADALAH KLASIFIKASI BINER ---
+
+# Definisikan ulang label Anda menjadi 2 kelas
+binary_labels = ['Normal', 'Katarak'] 
+
+# Model akan menghasilkan satu angka (misal, mendekati 0 untuk Normal, mendekati 1 untuk Katarak)
+prediction_value = model.predict(img_array)[0][0] # Ambil satu-satunya nilai dari output
+
+# Gunakan ambang batas (threshold) 0.5 untuk menentukan kelas
+if prediction_value < 0.5:
+    predicted_label = binary_labels[0] # Normal
+    confidence = 1 - prediction_value
+else:
+    predicted_label = binary_labels[1] # Katarak
+    confidence = prediction_value
+
+st.subheader("🔍 Hasil Prediksi")
+st.write(f"**Kelas:** {predicted_label}")
+st.write(f"**Confidence:** {confidence:.2%}") # Tampilkan sebagai persentase
+
+st.markdown("### 📊 Skor Prediksi:")
+st.write(f"Nilai output model (0 = {binary_labels[0]}, 1 = {binary_labels[1]}): {prediction_value:.4f}")
